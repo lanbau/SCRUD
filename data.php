@@ -1,9 +1,9 @@
 <?php
 // Database details
 $db_server   = 'localhost';
-$db_username = '***';
-$db_password = '***';
-$db_name     = '***';
+$db_username = 'root';
+$db_password = 'root';
+$db_name     = 'SCRUD';
 
 // Get job (and id)
 $job = '';
@@ -31,7 +31,7 @@ $mysql_data = array();
 
 // Valid job found
 if ($job != ''){
-  
+
   // Connect to database
   $db_connection = mysqli_connect($db_server, $db_username, $db_password, $db_name);
   if (mysqli_connect_errno()){
@@ -39,10 +39,10 @@ if ($job != ''){
     $message = 'Failed to connect to database: ' . mysqli_connect_error();
     $job     = '';
   }
-  
+
   // Execute job
   if ($job == 'get_companies'){
-    
+
     // Get companies
     $query = "SELECT * FROM it_companies ORDER BY rank";
     $query = mysqli_query($db_connection, $query);
@@ -70,9 +70,9 @@ if ($job != ''){
         );
       }
     }
-    
+
   } elseif ($job == 'get_company'){
-    
+
     // Get company
     if ($id == ''){
       $result  = 'error';
@@ -100,9 +100,9 @@ if ($job != ''){
         }
       }
     }
-  
+
   } elseif ($job == 'add_company'){
-    
+
     // Add company
     $query = "INSERT INTO it_companies SET ";
     if (isset($_GET['rank']))         { $query .= "rank         = '" . mysqli_real_escape_string($db_connection, $_GET['rank'])         . "', "; }
@@ -121,9 +121,9 @@ if ($job != ''){
       $result  = 'success';
       $message = 'query success';
     }
-  
+
   } elseif ($job == 'edit_company'){
-    
+
     // Edit company
     if ($id == ''){
       $result  = 'error';
@@ -148,9 +148,9 @@ if ($job != ''){
         $message = 'query success';
       }
     }
-    
+
   } elseif ($job == 'delete_company'){
-  
+
     // Delete company
     if ($id == ''){
       $result  = 'error';
@@ -166,9 +166,9 @@ if ($job != ''){
         $message = 'query success';
       }
     }
-  
+
   }
-  
+
   // Close database connection
   mysqli_close($db_connection);
 
